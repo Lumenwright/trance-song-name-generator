@@ -6,7 +6,7 @@ E:\Contents\Dualism, Meeloo\Progressive & Psy Trance Pieces Vol.4\I Beg You.mp3
 
 songs = {}
 word_list = {}
-ignore=['the','of','in','to','a','on','for','feat.','are','&','ey','remix']
+ignore=['the','of','in','to','a','on','for','feat.','are','&','ey','remix','mix','edit','cut','you','me','i','your','we', 'my']
 
 #read the file
 
@@ -47,18 +47,19 @@ for artist in songs.items():
             if len(word) == 0:
                 continue
             # try to account for plurals
-            w = word
+            w = word.strip('[],?')
             if w[-1]== 's':
                 if len(w[:-2]) == 0:
                     continue
-                w = w[0:-2]
+                w = w[0:-1]
             if w in word_list:
                 word_list[w] += 1
             else:
                 word_list[w] = 1
 
 #sort the dictionary
-sorted_words = {k: v for k, v in sorted(word_list.items(), key=lambda item: item[1])}
+sorted_words = {k: v for k, v in sorted(word_list.items(), key=lambda item: item[1], reverse=True)}
 for i in sorted_words.items():
+    if i[0] in ignore:
+        continue
     print(i)
-print(sorted_words["star"])
